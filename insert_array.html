@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var a = document.querySelector("#b");
+        a.addEventListener("click", insert);
+        function insert() {
+            let n = document.querySelector("#a").value;
+            let arr = new Array(n);
+            for (let i = 0; i < n; i++) {
+                arr[i] = prompt("Enter a number");
+            }
+            console.log(arr);
+        }
+    </script>
+</head>
+
+<body>
+    <p>Enter a number : </p>
+    <input type="number" id="a">
+    <button type="submit" id="b">Insert</button>
+
+</body>
+
+</html>
