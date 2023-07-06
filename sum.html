@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <input type="number" id="a">
+    <br>
+    <br>
+    <input type="number" id="b">
+    <br><br>
+    <input type="number" id="c">
+    <button type="submit" id="sum">submit</button>
+    <script>
+        var sumButton = document.querySelector("#sum");
+        sumButton.addEventListener("click", sum);
+        function sum() {
+            let a = parseInt(document.querySelector("#a").value);
+            let b = parseInt(document.querySelector("#b").value);
+            let sum = a + b;
+            document.querySelector("#c").value = sum;
+        }
+    </script>
+</body>
+
+</html>
