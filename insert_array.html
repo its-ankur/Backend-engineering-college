@@ -5,25 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script>
-        var a = document.querySelector("#b");
-        a.addEventListener("click", insert);
-        function insert() {
-            let n = document.querySelector("#a").value;
-            let arr = new Array(n);
-            for (let i = 0; i < n; i++) {
-                arr[i] = prompt("Enter a number");
-            }
-            console.log(arr);
-        }
-    </script>
 </head>
 
 <body>
     <p>Enter a number : </p>
     <input type="number" id="a">
+    <br>
     <button type="submit" id="b">Insert</button>
-
+    <button type="submit" id="d">Delete</button>
+    <div id="c"></div>
+    <br>
+    <div id="e"></div>
+    <script>
+        var a = document.querySelector("#b");
+        a.addEventListener("click", insert);
+        let arr=[];
+        var b=document.querySelector("#d");
+        b.addEventListener("click",del);
+        function insert() {
+            let n = parseInt(document.querySelector("#a").value);
+            //let arr = new Array(n);
+            for (let i = 0; i < n; i++) {
+                arr.push(prompt("Enter a number"));
+            }
+            // arr.forEach(function(n){
+            //     arr[n]=prompt("Enter a number");
+            // });
+            let txt=" ";
+            let j=0;
+            for(j=0;j<n;j++) {
+                txt += arr[j] + " ";
+            }
+            //txt+=a[j+1];
+            document.querySelector("#c").innerHTML = txt;
+        }
+        function del(){
+            let m=parseInt(document.querySelector("#a").value);
+            // arr.forEach(function(index){
+            //     if(arr[index]==m){
+            //         arr.splice(value,1);
+            //     }
+            // });
+            let arr1=arr.filter(f);
+            function f(v){
+                if(v!=m){
+                    return v;
+                }
+            }
+            let txt=" ";
+            let j=0;
+            for(j=0;j<arr1.length;j++) {
+                txt += arr1[j] + " ";
+            }
+            //txt+=a[j+1];
+            document.querySelector("#c").innerHTML = txt;
+        }
+    </script>
 </body>
 
 </html>
