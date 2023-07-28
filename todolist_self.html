@@ -11,38 +11,52 @@
 
     <input type="text" id="text">
     <button id="add">ADD</button>
-
+    <button id="display">Display</button>
 
     <script>
-        var addButton = document.querySelector("#add")
-        addButton.addEventListener("click", add)
+        var addButton = document.querySelector("#add");
+        addButton.addEventListener("click", add);
         var tasks = [];
-        var Id = 1;
-
+        var i = 0;
+        var displayButton = document.querySelector("#display");
+        displayButton.addEventListener("click", display);
+        // var Id = 1;
+        var Title = document.getElementById("text").value;
         function add() {
 
-            var Title = document.getElementById("text").value;
-            const Obj = {
-                id: Id,
-                title: Title,
-                status: "Pending"
-            };
-            tasks.push(Obj);
-            Id += 1;
-            console.log(tasks);
-
-            var div = document.createElement("div");
-            var p = document.createElement("p");
-
-
-            p.innerHTML = `TITLE IS :  ${Title}`;
-            div.appendChild(p);
+             var Title = document.getElementById("text").value;
+            // const Obj = {
+            //     id: Id,
+            //     title: Title,
+            //     status: "Pending"
+            // };
+            // tasks.push(Obj);
+            // Id += 1;
+            // console.log(tasks);
+            tasks[i++] = Title;
+            // console.log(tasks);
+            // var div = document.createElement("div");
+            // var p = document.createElement("p");
 
 
-            document.body.appendChild(div);
+            // p.innerHTML = `Element at ${i} is  ${Title}`;
+            // div.appendChild(p);
 
+
+            // document.body.appendChild(div);
+            alert("New element is added");
         }
+        function display() {
+            for (let i = 0; i < tasks.length; i++) {
+                var div = document.createElement("div");
+                var p = document.createElement("p");
 
+
+                p.innerHTML = `Element at ${i} is  ${tasks[i]}`;
+                div.appendChild(p);
+                document.body.appendChild(div);
+            }
+        }
     </script>
 </body>
 
