@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const path=require('path');
 //create a directory
 
 // fs.mkdir("E:\\Backend engineering college\\test",function(error){
