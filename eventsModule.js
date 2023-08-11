@@ -12,4 +12,4 @@ obj.on("Logout",(e)=>{
     console.log(e);
 });
 obj.emit("Login","test");  //fire event
-obj.emit("Logout",{name:"Ankur",section:"a"});  //fire event
+obj.emit("Logout",{name:"Ankur",section:"a"});  //fire event 
