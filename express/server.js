@@ -5,8 +5,8 @@ const path = require("path");
 
 const app = express();
 
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false })); //for post data
+app.use(express.static("."));
+app.use(express.urlencoded({ extended: true })); //for post data
 app.get("/getdata", (req, res) => {
     //res.send("Welcome to getdata page ...");
     console.log(req.query);
