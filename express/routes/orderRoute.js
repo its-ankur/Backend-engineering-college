@@ -6,7 +6,7 @@ router.get("/",(req,res)=>{
 });
 
 router.get("/details/:data",(req,res)=>{
-    res.send("Order details page "+req.params.data);
+    res.send("Order details page "+req.params.data+" "+req.params.details);
 });
 
 router.get("/history",(req,res)=>{

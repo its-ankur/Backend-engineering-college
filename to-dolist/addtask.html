@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form  action="/addtask" method="post">
+        <input type="text" name="title" placeholder="Enter task">
+        <input type="submit" value="Add task">
+    </form>
+    <ul id="tasks">
+
+    </ul>
+    <script>
+        let tasks = document.querySelector("tasks");
+        function fetchData(){
+            fetch("/alltask").then((data)=>{
+                return data.json();
+            }).then((data)=>{
+                //console.log(data);
+                displayData(data);
+            }).catch((err)=>{
+
+            })
+        }
+        fetchData();
+        function displayData(data){
+            tasks.innerHTML = "";
+            data.forEach((task)=>{
+                let li = document.createElement("li");
+                li.innerText = task.title;
+                tasks.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
