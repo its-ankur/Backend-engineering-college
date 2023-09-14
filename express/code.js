@@ -2,8 +2,9 @@ const express = require("express");
 const app = express();
 app.use(express.static("."));
 const orderRouter= require("./routes/orderRoute");
-
-app.use("/order", orderRouter);
+const rootRoute=require("./routes/rootRoute")
+app.use("/orders", orderRouter);
+app.use("/",rootRoute);
 app.get("/", (req, res) => {
     res.send("Welcome to express server ...");
 });
