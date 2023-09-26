@@ -7,7 +7,7 @@ const app = express();
 const oneDay = 1000*60*60*24;
 app.use(express.static("public"));
 app.use(express.urlencoded({extended:false}));
-
+app.set("view engine","ejs");
 app.use(cookieparser());
 app.use(session({
 
@@ -55,10 +55,10 @@ function testadmin(req,res,next){
 
 app.get("/dashboard",(req,res)=>{
     if(req.session.username)
-    res.sendFile(path.join(__dirname,"./public/dashboard.html"));
+    res.render("dashboard",{name:req.session.username});
     else
     res.redirect("/");
-})
+});
 
 app.get("/logout",(req,res)=>{
     req.session.destroy(); //removes all the data as well as session
@@ -96,11 +96,17 @@ app.post("/login",(req,res)=>{
     if(result){
         req.session.username=req.body.username;
         req.session.role=result.role;
+        res.session.message="Invalid username/password";
         res.redirect("/admin");
     }
     else{
-        res.send("invalid username/password");
+        // res.send("invalid username/password");
+        res.render("login",{msg:"Invalid username/password"});
     }
+});
+
+app.get("/login",(req,res)=>{
+    res.render("login",{msg:req.session.message});
 });
 
 app.listen(3000,(err)=>{

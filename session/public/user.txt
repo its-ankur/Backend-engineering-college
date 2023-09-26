@@ -2,12 +2,13 @@
     {
         "username":"Ankur",
         "password":"admin",
-        "role":"admin"
+        "role":"admin",
+        "Name":"Administrator"
     },
     {
         "username":"admin",
         "password":"admin",
-        "role":"user"
-
+        "role":"user",
+        "Name":"Ankur"
     }
 ]
