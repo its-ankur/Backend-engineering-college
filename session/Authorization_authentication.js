@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended:false}));
 app.use(cookieparser());
 app.use(session({
 
-    saveUnintalized:true,
+    saveUninitialized:true,
     resave:false,
     secret:'as#$@&dfd$$',
     cookie:{maxAge:oneDay}
@@ -19,14 +19,14 @@ app.use(session({
 
 //user routes//
 
-const userroutes = require("./routing/userroutes");
-app.use("/users",auth,userroutes);
-function auth(req,res,next){
-    if (req.session.username)
-    next();
-    else
-    res.redirect("/");
-}
+// const userroutes = require("./routing/adminroutes");
+// app.use("/users",auth,userroutes);
+// function auth(req,res,next){
+//     if (req.session.username)
+//     next();
+//     else
+//     res.redirect("/");
+// }
 
 //admin autherization//
 const adminroutes = require("./routing/adminroutes");
@@ -35,7 +35,7 @@ function testadmin(req,res,next){
     if (req.session.username && req.session.role == "admin")
     next();
     else
-    res.redirect("/");
+    res.redirect("/dashboard");
 }
 
 // app.get("/profile",(req,res)=>{
@@ -53,42 +53,55 @@ function testadmin(req,res,next){
 // })
 
 
-// app.get("/dashboard",(req,res)=>{
-//     if(req.session.username)
-//     res.sendFile(path.join(__dirname,"./public/dashboard.html"));
-//     else
-//     res.redirect("/");
-// })
+app.get("/dashboard",(req,res)=>{
+    if(req.session.username)
+    res.sendFile(path.join(__dirname,"./public/dashboard.html"));
+    else
+    res.redirect("/");
+})
 
-// app.get("/logout",(req,res)=>{
-//     req.session.destroy(); //removes all the data as well as session
-//     res.redirect("/");
-// })
+app.get("/logout",(req,res)=>{
+    req.session.destroy(); //removes all the data as well as session
+    res.redirect("/");
+})
 
-app.post("/login",(req,res)=>{
+// app.post("/login",(req,res)=>{
 
     
 
-    fs.readFile("users.txt",(err,data)=>{
-        let record = JSON.parse(data);
-        console.log(req.body);
+//     fs.readFile("user.txt","utf-8",(err,data)=>{
+//         console.log(data);
+//         let record = JSON.parse(data);
+//         console.log(req.body);
 
-        let result = record.filter((item)=>{
-            if(req.body.username == item.username && req.body.password == item.password)
-                return true;
-        })
-        if (result.length == 0)
-            res.send("invalid username/password");
-        else{
-            req.session.username = req.body.username;
-            req.session.role = result[0].role;
-            res.redirect("/dashboard");
-        }
+//         let result = record.filter((item)=>{
+//             if(req.body.username == item.username && req.body.password == item.password)
+//                 return true;
+//         })
+//         if (result.length == 0)
+//             res.send("invalid username/password");
+//         else{
+//             req.session.username = req.body.username;
+//             req.session.role = result[0].role;
+//             res.redirect("/dashboard");
+//         }
             
-            // res.send("welcome "+req.body.username);
-    });   
-})
-
+//             // res.send("welcome "+req.body.username);
+//     });   
+// })
+app.post("/login",(req,res)=>{
+    let data=fs.readFileSync("public/user.txt","utf-8");
+    let users=JSON.parse(data);
+    let result=users.find(u=>u.username==req.body.username && u.password==req.body.password);
+    if(result){
+        req.session.username=req.body.username;
+        req.session.role=result.role;
+        res.redirect("/admin");
+    }
+    else{
+        res.send("invalid username/password");
+    }
+});
 
 app.listen(3000,(err)=>{
     if(!err)

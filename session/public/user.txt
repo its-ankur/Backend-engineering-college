@@ -1,6 +1,13 @@
 [
     {
-        "name":"Ankur",
-        "password":"admin"
+        "username":"Ankur",
+        "password":"admin",
+        "role":"admin"
+    },
+    {
+        "username":"admin",
+        "password":"admin",
+        "role":"user"
+
     }
 ]
