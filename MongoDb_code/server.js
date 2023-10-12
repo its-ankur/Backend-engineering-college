@@ -27,6 +27,7 @@ app.get("/saveData",(req,res)=>{
     });
 });
 
+///saveData?name=test&age=20
 
 app.listen(3000,()=>{
     console.log("Server started at port 3000");
