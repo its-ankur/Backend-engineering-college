@@ -3,7 +3,7 @@ const app=express();
 const client=require("mongodb").MongoClient;
 app.set("view engine","ejs");
 let dbinstance;
-client.connect("mongodb://127.0.0.1:27017").then((server)=>{
+client.connect("mongodb+srv://ankur1037:Ankurqwerty2003@cluster0.apokfz1.mongodb.net/?retryWrites=true&w=majority").then((server)=>{
     dbinstance=server.db("Globe");
 console.log("Connected to database");
 }).catch((error)=>{
