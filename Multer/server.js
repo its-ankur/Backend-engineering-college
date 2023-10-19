@@ -1,36 +1,32 @@
-const express=require("express");
-const multer=require("multer");
-const app=express();
-const port=3000;
-const fs=require("fs");
-const path=require("path");
-const upload=multer({dest:"uploads/"});
-
+const express = require("express");
+const multer = require("multer");
+const app = express();
+const path = require("path");
+const fs = require("fs");
 app.use(express.static("public"));
-app.use(express.urlencoded({extended:true}));
-app.use(express.static("uploads"));
-app.use(express.json());
-
-app.post('/',upload.single("file"),(req,res)=>{
-    console.log(req.file);
-    console.log(req.body);
-    // const oldPath=path.join(__dirname,req.file.path);
-    // const newPath=path.join(__dirname,"uploads",req.file.originalname);
-    // fs.rename(oldPath,newPath,(err)=>{
-    //     if(err) throw err;
-    //     res.send("File uploaded successfully");
-    // });
-    fs.readFileSync(__dirname + '/public/data.txt',"utf-8",function(err,data) {
-        let dataStored;
-        let imgurl;
-        if(err){
-            console.log(err);
-            return res.send("Error");
-        }
-        else{
-            if(data.length===0){
-                dataStored=[];
-            }
-        }
-    });
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "public/files");
+    },
+    filename: (req, file, cb) => {
+        let ext = file.minetype.split("/")[1];
+        cb(null, req.session.username + "." + ext);
+    }
+});
+function test(req, file, cb) {
+    let ext = file.minetype.split("/")[1];
+    if (ext == "jpeg" || ext == "jpg")
+        cb(null, true);
+    else
+        cb(new Error("File type is not supported"), false);
+}
+const upload = multer({ storage: storage, fileFilter: test,limits:{fileSize:1000000} });
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "/public/form.html"));
+});
+app.post("/upload", upload.single("pic"), (req, res) => {
+    res.end("File uploaded");
+});
+app.listen(3000, () => {
+    console.log("Server started");
 });
