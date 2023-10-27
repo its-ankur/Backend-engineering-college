@@ -11,7 +11,7 @@ app.set("view engine","ejs");
 app.use(cookieparser());
 app.use(session({
 
-    saveUninitialized:true,
+    saveUninitialized:false,
     resave:false,
     secret:'as#$@&dfd$$',
     cookie:{maxAge:oneDay}
