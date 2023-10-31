@@ -27,6 +27,15 @@ app.get("/saveData",(req,res)=>{
     });
 });
 
+// app.get("/delete",(req,res)=>{
+//     dbinstance.collection("students").find({}).toArray().then((data)=>{
+//         // console.log(data);
+//         // res.end();
+//         let find=data.filter((x=>x.id==req.query.id));
+//         res.render("home",{students:data});
+//     });
+// });
+
 ///saveData?name=test&age=20
 
 app.listen(3000,()=>{

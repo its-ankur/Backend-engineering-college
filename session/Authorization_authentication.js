@@ -10,12 +10,11 @@ app.use(express.urlencoded({extended:false}));
 app.set("view engine","ejs");
 app.use(cookieparser());
 app.use(session({
-
     saveUninitialized:false,
     resave:false,
     secret:'as#$@&dfd$$',
     cookie:{maxAge:oneDay}
-}))
+}));
 
 //user routes//
 
